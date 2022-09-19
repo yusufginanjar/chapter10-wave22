@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+.rockpaperscissors{
+    font-family: 'Open Sans', sans-serif;
+    background: #9C835F;
+    height: 100vh;
+    width: 100vw;
+}
+
+.title{
+    color: #F9B23D;
+}
+
+.totalscore{
+    color: #483517;
+}
+
+.choice{
+    cursor: pointer;
+    
+}
+
+#game-rps .choice img{
+    transition-duration: .3s;
+}
+
+#game-rps .choice:hover img{
+    transform: rotate(28.87deg);
+}
+
+
+
+.gamerps {
+    margin-top: 100px;
+}
+
+
+.gamerps ul li{
+    height: 100px;
+    width: 100px;
+    margin: 4px;
+    list-style: none;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-rps ul li img{
+    max-height: 90px;
+    max-width: 90px;
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.answer{
+    font-size: 80px;
+    color: #BD0000;
+}
+
+.gameresult{
+    
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    border-radius: 10px;
+    transform: rotate(-28.87deg);
+}
+
+.picked{
+    background: #c29a5b;
+}
