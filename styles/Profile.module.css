@@ -1,16 +1,16 @@
 .profilePage {
     text-align: left;
-    background-color: #eeeeee;
+    background-color: rgb(20, 20, 20);
     min-height: 100vh;
     width: 100%;
     padding-top: 60px;
   }
 
 
-/* img {
+.img {
     width: 100%;
     height: 100%;
-  } */
+  }
   
 .bgBlack {
     background: #000;

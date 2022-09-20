@@ -55,7 +55,7 @@ export default function Profile() {
             <div className="container">
             <div className="row no-gutters">
                 <div className="col-md-4 col-lg-4">
-                    <img src={player.url} className="img-fluid" />
+                    <img src={player.url} className={ styles.img + " img-fluid"} />
                 </div>
                 <div className="col-md-8 col-lg-8">
                     <div className="d-flex flex-column">
