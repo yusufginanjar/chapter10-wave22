@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, update } from "firebase/database";
+import { getDatabase, ref, onValue, update } from "../firebase/clientApp";
 import { getAuth, onAuthStateChanged  } from "../firebase/clientApp";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import {Link, useNavigate} from "react-router-dom";
@@ -17,6 +17,8 @@ export default function Game() {
     const [player, setPlayer] = useState('Player 1');
     const [playerPick, setPlayerPick] = useState('');
     const [comPick, setComPick] = useState('');
+    const [round, setRound] = useState(1);
+    const [set, setSet] = useState(1);
 
     const auth = getAuth();
 
@@ -27,10 +29,12 @@ export default function Game() {
         const db = getDatabase();
         
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const uid = user.uid;
-                setUserId(uid);
-                const scoreRef = ref(db, '/users/' + uid);
+            // if (user) {
+            if (true) {
+                // const uid = user.uid;
+                // setUserId(uid);
+                // const scoreRef = ref(db, '/users/' + uid);
+                const scoreRef = ref(db, '/users/' + 'yusuf');
                 onValue(scoreRef, (snapshot) => {
                     const data = snapshot.val();
                     setTotalScore(data.score);
@@ -42,7 +46,8 @@ export default function Game() {
             }
         });
        
-        const _scoreRef = ref(db, '/users/' + userId);
+        // const _scoreRef = ref(db, '/users/' + userId);
+        const _scoreRef = ref(db, '/users/' + 'yusuf');
         if(score === 2 || comScore === 2){
             if (score === 2) {
                 console.log('you win');
@@ -61,6 +66,7 @@ export default function Game() {
                     score: new_score,
                 });
             }
+            setRound(round + 1);
             setGameOver(true);
         }
     }, [score, comScore])
@@ -74,6 +80,9 @@ export default function Game() {
 
     // function to reset set play to true and pick to empty object
     const handleReset = () => {
+        if(play == false && result != 'TIE'){
+            setSet(set + 1);
+        }
         setGameOver(false);
         setPlay(true);
         setPlayerPick('');
@@ -82,7 +91,9 @@ export default function Game() {
         if(score === 2 || comScore === 2){
             setScore(0);
             setComScore(0);
+            setSet(1);
         }
+       
     }
 
     const getPickStyle = (p) => {
@@ -205,6 +216,13 @@ export default function Game() {
                             <ul className="computer-wrapper">
                                 <h1 className="text-center mb-4">{comScore}</h1>
                             </ul>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="ms-4">
+                            <h3>Round: {round} </h3>
+                            <h3>Set: {set}</h3>
+                            <p>A player must win by two sets in to win the Round and get the Score</p>
                         </div>
                     </div>
                 </div>
