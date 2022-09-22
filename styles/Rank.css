@@ -1,0 +1,89 @@
+.rank-page {
+    text-align: left;
+    min-height: 100vh;
+  }
+  
+.top-scores{
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.top-scores .background-overlay{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.top-scores .container{
+  position: relative;
+  z-index: 2;
+}
+
+.top-scores .h1{
+  margin-top: 120px;
+}
+
+.top-scores .card{
+  border-radius: 12px;
+}
+
+.top-scores .profil-image,
+.top-scores .profil-image img,
+.top-scores .profil-image .back-shadow{
+  height: 70px; 
+  width: 70px; 
+  border-radius: 50%;
+}
+
+.top-scores .profil-image {
+  position: relative;
+  z-index: 10;
+}
+
+.top-scores .profil-image .back-shadow{
+  position: absolute;
+  top:4px;
+  left: 8px;
+  z-index:-1;
+}
+
+
+.top-scores .card-title span{
+  font-weight: 500;
+  position: relative;
+  top:-6px
+}
+
+.top-scores .twitter-icon {
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+}
+
+.top-scores .grid-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.top-scores .grid-item.item1{
+  grid-row-start: 1;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.top-scores .grid-item.item2{
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.top-scores .grid-item.item3{
+  grid-row-start: 3;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
