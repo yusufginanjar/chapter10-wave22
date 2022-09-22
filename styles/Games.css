@@ -1,0 +1,14 @@
+#games{
+    text-align: left;
+}
+
+#games-hero{
+    background: url('../../public/assets/images/homepage-bg.png') no-repeat center center;
+    background-size: cover;
+}
+
+.overlay{
+    min-height:100%;
+    background:linear-gradient(0deg, rgba(58, 1, 34, 0.6),   rgba(255, 0, 150, 0.3));
+    background-size:cover;
+}
