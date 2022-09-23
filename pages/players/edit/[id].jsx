@@ -5,20 +5,19 @@ import { getAuth, onAuthStateChanged  } from "../../../firebase/clientApp";
 import { getDownloadURL, getStorage, ref as _ref, uploadBytes} from 'firebase/storage'
 import styles from "../../../styles/Profile.module.css"
 import Link from 'next/link'
-// import {Link, useNavigate} from 'react-router-dom';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
-// const Toast = Swal.mixin({
-//     toast: true,
-//     position: 'top-end',
-//     showConfirmButton: false,
-//     timer: 2500,
-//     timerProgressBar: true,
-//     didOpen: (toast) => {
-//       toast.addEventListener('mouseenter', Swal.stopTimer);
-//       toast.addEventListener('mouseleave', Swal.resumeTimer);
-//     },
-//   });
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
 export default function ProfileEdit() {
     const [player, setPlayer] = useState({
@@ -29,17 +28,18 @@ export default function ProfileEdit() {
         rank: '',
     });
     const [ file, setFile ] = useState(null);
-    // const navigate = useNavigate();
-    // const pathname = window.location.pathname
-    const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
-    // const userId = getLastItem(pathname)
-    const userId = 'yusuf';
+    const [_userId, setUserId] = useState('');
+   
     const auth = getAuth();
 
     const router = useRouter()
 
     
     useEffect(() => {
+        const pathname = window.location.pathname
+        const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
+        const userId = getLastItem(pathname)
+        setUserId(userId);
         const db = getDatabase();
         const starCountRef = ref(db, '/users/' + userId);
         onValue(starCountRef, (snapshot) => {
@@ -57,14 +57,11 @@ export default function ProfileEdit() {
     function handleSubmit(e){
         e.preventDefault();
         onAuthStateChanged(auth, async (user) => {
-            // if (user) {
-            if (true) {
-            //   const uid = user.uid;
-            //   if (uid === userId){ 
-              if (true){ 
+            if (user) {
+              const uid = user.uid;
+              if (uid === _userId){ 
                 const db = getDatabase();
                 if(file){
-                    console.log("masuk");
                     const storage = getStorage();
                     const metadata = {
                       contentType: 'image/jpeg'
@@ -77,25 +74,23 @@ export default function ProfileEdit() {
                     const downloadUrl = await getDownloadURL(_ref(storage, fileName));
                     console.log(downloadUrl);
         
-                    update(ref(db, 'users/' + userId), {
+                    update(ref(db, 'users/' + _userId), {
                         url: downloadUrl,
                       });
                 }
-                console.log("masuk");
-                update(ref(db, 'users/' + userId), {
+                update(ref(db, 'users/' + _userId), {
                   username: e.target.username.value,
                   email: e.target.email.value,
                   bio: e.target.bio.value,
                 });
-                // await Toast.fire({
-                //     icon: 'success',
-                //     title: 'Profile Update Successfully',
-                //   });
+                await Toast.fire({
+                    icon: 'success',
+                    title: 'Profile Update Successfully',
+                  });
               }
             } 
         });
-        // navigate(`/players/${userId}`);
-        router.push('/players/' + [userId]);
+        router.push('/players/' + _userId);
       }
 
     const handleChange = (event) => {
@@ -154,7 +149,9 @@ export default function ProfileEdit() {
                                     </div>
                                 </div>
                                 <button className='btn btn-success me-3' type="submit">Save Profile</button>
-                                {/* <Link className="btn btn-outline-success" to={`/players/${userId}`}>Cancel</Link> */}
+                                <Link  href={`/players/${_userId}`}>
+                                    <button className="btn btn-outline-success">Cancel</button>
+                                </Link>
                                 
                             </form>
                         </div>

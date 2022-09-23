@@ -1,17 +1,14 @@
 import {useEffect, useState} from "react";
 import { getDatabase, ref, onValue, query, orderByChild } from "firebase/database";
 import { getAuth, onAuthStateChanged  } from "../../firebase/clientApp";
-// import {Link} from "react-router-dom";
 import Link from 'next/link'
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../styles/Profile.module.css'
-// import styles from '../styles/Game.module.css';
+
 
 export default function Profile() {
     const [player, setPlayer] = useState('');
-    // const [enableEdit, setEnableEdit] = useState(false);
-    const [enableEdit, setEnableEdit] = useState(true);
-
+    const [enableEdit, setEnableEdit] = useState(false);
+    const [_userId, setUserId] = useState('');
 
     const auth = getAuth();
 
@@ -19,6 +16,7 @@ export default function Profile() {
       const pathname = window.location.pathname
       const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
       const userId = getLastItem(pathname)
+      setUserId(userId);
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -28,13 +26,12 @@ export default function Profile() {
         });
         
         const db = getDatabase();
-        // const topUserPostsRef = query(ref(db, 'users'),orderByChild('score'));
-        // onValue(topUserPostsRef, (snapshot) => {
-        //     const data = snapshot.val();
-        //     console.log(data);
-        // });
-        // const dataRef = ref(db, '/users/' + userId);
-        const dataRef = ref(db, '/users/' + 'yusuf');
+        const topUserPostsRef = query(ref(db, 'users'),orderByChild('score'));
+        onValue(topUserPostsRef, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+        });
+        const dataRef = ref(db, '/users/' + userId);
         onValue(dataRef, (snapshot) => {
             const data = snapshot.val();
             console.log(data.score);
@@ -79,7 +76,7 @@ export default function Profile() {
                             </div>
                             <div className={ styles.skillBlock + " p-3 bg-danger text-center"}>
                             {enableEdit ? 
-                            <Link href={ `/players/edit/yusuf` }>
+                            <Link href={ `/players/edit/${_userId}` }>
                               <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0">EDIT</button>
                             </Link> : ''}
                             </div>
