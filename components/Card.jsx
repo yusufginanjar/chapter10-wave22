@@ -16,12 +16,12 @@ export default function Cards() {
               <Card.Body>
                 <Card.Title>Game List</Card.Title>
                 <Card.Text className="text-black d-flex">
-                  <p>
+                  <span>
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
-                  </p>
+                  </span>
                 </Card.Text>
-                <Link href="/game">
+                <Link href="/games">
                   <Button>See more</Button>
                 </Link>
               </Card.Body>
@@ -36,10 +36,10 @@ export default function Cards() {
               <Card.Body>
                 <Card.Title>Multiplayer Game</Card.Title>
                 <Card.Text className="text-black d-flex">
-                  <p>
+                  <span>
                     the bulk of the card's content. Some quick example text to
                     build on the card title and make up
-                  </p>
+                  </span>
                 </Card.Text>
                 <Button variant="primary">See more</Button>
               </Card.Body>
@@ -54,10 +54,10 @@ export default function Cards() {
               <Card.Body>
                 <Card.Title>Coming Soon</Card.Title>
                 <Card.Text className="text-black d-flex">
-                  <p>
+                  <span>
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
-                  </p>
+                  </span>
                 </Card.Text>
                 <Button variant="primary">See more</Button>
               </Card.Body>

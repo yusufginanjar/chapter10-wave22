@@ -17,9 +17,9 @@ export default function Carousels() {
         />
         <Carousel.Caption>
           <h3>Rock Paper Scissors</h3>
-          <p className="d-flex justify-content-center">
+          <span className="d-flex justify-content-center">
             If you miss your childhood, we provide many traditional games here
-          </p>
+          </span>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -31,9 +31,9 @@ export default function Carousels() {
 
         <Carousel.Caption>
           {/* <h3>Second slide label</h3> */}
-          <p className="d-flex justify-content-center">
+          <span className="d-flex justify-content-center">
             There's something really cool is coming ! Stay tuned{" "}
-          </p>
+          </span>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -46,9 +46,9 @@ export default function Carousels() {
         <Carousel.Caption>
           {/* <h3>Third slide label</h3> */}
 
-          <p className="d-flex justify-content-center">
+          <span className="d-flex justify-content-center">
             There's something really cool is coming ! Stay tuned{" "}
-          </p>
+          </span>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
