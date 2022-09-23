@@ -29,12 +29,10 @@ export default function Game() {
         const db = getDatabase();
         
         onAuthStateChanged(auth, (user) => {
-            // if (user) {
-            if (true) {
-                // const uid = user.uid;
-                // setUserId(uid);
-                // const scoreRef = ref(db, '/users/' + uid);
-                const scoreRef = ref(db, '/users/' + 'yusuf');
+            if (user) {
+                const uid = user.uid;
+                setUserId(uid);
+                const scoreRef = ref(db, '/users/' + uid);
                 onValue(scoreRef, (snapshot) => {
                     const data = snapshot.val();
                     setTotalScore(data.score);
@@ -42,12 +40,11 @@ export default function Game() {
                 });
             } else {
                 console.log('no user');
-                // navigate('/login');
+                router.push('/login');
             }
         });
        
-        // const _scoreRef = ref(db, '/users/' + userId);
-        const _scoreRef = ref(db, '/users/' + 'yusuf');
+        const _scoreRef = ref(db, '/users/' + userId);
         if(score === 2 || comScore === 2){
             if (score === 2) {
                 console.log('you win');
