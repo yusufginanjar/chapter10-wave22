@@ -1,9 +1,9 @@
-#games{
+.games{
     text-align: left;
 }
 
-#games-hero{
-    background: url('../../public/assets/images/homepage-bg.png') no-repeat center center;
+.gamesHero{
+    background: url('../public/assets/images/homepage-bg.png') no-repeat center center;
     background-size: cover;
 }
 

@@ -1,16 +1,10 @@
 import React, { useEffect , useState} from 'react';
-import ButtonLogout from '../components/buttons/buttonLogOut';
-import { signOut } from 'firebase/auth';
-import { auth } from '../utils/firebase';
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth, onAuthStateChanged  } from "../firebase/clientApp";
-// import { Link, useNavigate } from 'react-router-dom';
 import Link from 'next/link'
-// import '../styles/games.css';
-import styles from '../../styles/Games.module.css'
+import styles from '../styles/Games.module.css'
 export default function Games() {
   const [player, setPlayer] = useState('');
-  const navigate = useNavigate();
 
   const auth = getAuth();
 
@@ -18,7 +12,7 @@ export default function Games() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        navigate('/login');
+        router.push('/login');
       } 
 
       onAuthStateChanged(auth, (user) => {
@@ -40,21 +34,11 @@ export default function Games() {
   }, []);
 
 
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-
-      navigate('/login');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
   return (
-    <div id={styles.games} className="bg-dark">
+    <div className={"bg-dark " + styles.games}>
       <div class="container my-4">
-        <div id={styles.games-hero} class=" text-white rounded">
-            <div className={styles.overlay + "p-4 p-md-5 mb-4"}>
+        <div class={ styles.gamesHero + " text-white rounded"}>
+            <div className={styles.overlay + " p-4 p-md-5 mb-4"}>
             <div class="col-md-6 px-0">
                 <h3>Welcome {player.username}</h3>
                 <h1 class="display-4 font-weight-bolder">START AND WIN THE GAME</h1>
@@ -65,11 +49,11 @@ export default function Games() {
     <div class="row mb-2">
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
+        <div class="col p-4 d-flex flex-column position-static text-white">
           <strong class="d-inline-block mb-2 text-primary">Game</strong>
           <h3 class="mb-0 text-white">Rock Paper Scissors</h3>
           <p class="card-text mb-auto mt-2">Traditional Game: Play vs AI</p>
-          <Link to='/game/rps' class="stretched-link">Play Now</Link>
+          <Link href='/game/rps' class="stretched-link">Play Now</Link>
         </div>
         <div class="col-auto d-none d-lg-block">
           <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/people-playing-paper-rock-scissors-royalty-free-illustration-1583269312.jpg?crop=0.994xw:0.799xh;0.00160xw,0.195xh&resize=1600:*" alt="Rock Paper Scissors" width="200" height="250" />
@@ -78,7 +62,7 @@ export default function Games() {
     </div>
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
+        <div class="col p-4 d-flex flex-column position-static text-white">
           <strong class="d-inline-block mb-2 text-success">Game</strong>
           <h3 class="mb-0 text-white">Portal 2</h3>
           <p class="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
@@ -91,7 +75,7 @@ export default function Games() {
     </div>
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
+        <div class="col p-4 d-flex flex-column position-static text-white">
           <strong class="d-inline-block mb-2 text-danger">Game</strong>
           <h3 class="mb-0 text-white">The Legend of Zelda: Breath of the Wild</h3>
           <p class="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
@@ -104,7 +88,7 @@ export default function Games() {
     </div>
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
+        <div class="col p-4 d-flex flex-column position-static text-white">
           <strong class="d-inline-block mb-2 text-warning">Game</strong>
           <h3 class="mb-0 text-white">Super Mario World</h3>
           <p class="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
