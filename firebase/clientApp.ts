@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import firebase from 'firebase/app'
 import { getApp as _getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth as _getAuth, onAuthStateChanged as _onAuthStateChanged } from "firebase/auth";
+import { getAuth as _getAuth, onAuthStateChanged as _onAuthStateChanged , signOut as _signOut } from "firebase/auth";
 import {signInWithEmailAndPassword as _signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase as _getDatabase, ref as _ref, onValue as _onValue, update as _update } from "firebase/database";
 // import { getAnalytics } from "firebase/analytics";
@@ -50,6 +50,11 @@ export function onAuthStateChanged(auth, callback) {
 export function signInWithEmailAndPassword(auth, email, password) {
   if (!firebaseIsRunning()) getApp();
     return _signInWithEmailAndPassword(auth, email, password);
+}
+
+export function signOut(auth) {
+  if (!firebaseIsRunning()) getApp();
+    return _signOut(auth);
 }
 
 export function getDatabase() {
