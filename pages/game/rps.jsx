@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, update } from "../firebase/clientApp";
-import { getAuth, onAuthStateChanged  } from "../firebase/clientApp";
+import { getDatabase, ref, onValue, update } from "../../firebase/clientApp";
+import { getAuth, onAuthStateChanged  } from "../../firebase/clientApp";
+import Link from 'next/link';
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import {Link, useNavigate} from "react-router-dom";
 
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 
 export default function Game() {
     const [score, setScore] = useState(0);
@@ -164,9 +165,9 @@ export default function Game() {
                     <div className="row">
                         <div className="col-4 player-1  d-flex justify-content-center">
                             <ul className="player-wrapper">
-                                {/* <Link to={`/players/${userId}`} style={{ textDecoration: 'none' }}> */}
+                                <Link href={`/players/${userId}`} style={{ textDecoration: 'none' }}>
                                     <h5 className="text-center mb-4 text-dark" >{player}</h5>
-                                {/* </Link> */}
+                                </Link>
                                 <li className={`rock ${styles.choice} ` + getPickStyle('rock') } onClick={() => handleClick('rock')}>
                                     <img src="../../assets/images/batu.png" className="image-fluid" alt="Rock"/>
                                 </li>
