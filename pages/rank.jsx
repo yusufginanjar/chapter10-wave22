@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
-import { getDatabase, ref, onValue, query, orderByChild, limitToLast } from "firebase/database";
+import { query, orderByChild, limitToLast } from "firebase/database";
+import { getDatabase, ref, onValue  } from "../firebase/clientApp";
 import Link from 'next/link'
 import styles from '../styles/Rank.module.css'
 
@@ -29,36 +30,40 @@ export default function Rank() {
     }, [])
      
     return(
-        <div className={styles.rank-page + 'bg-black'}>
-            <section id={tstyles.top-scores} className={styles.top-scores} >
-                <div className="background-overlay"></div>
-                <div className="container">
+        <div className={styles.rankPage + ' bg-dark'}>
+            <section className={styles.topScores} >
+                <div className={styles.backgroundOverlay}></div>
+                <div className={styles.container + " container"}>
                     <div className="row">
                     <div className="col-lg-6 pt-4">
-                        <h2 className="h1 display-4 text-white text-center">ROCK PAPER SCISSORS</h2>
-                        <p className="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sequi quae ipsum unde consequatur fugiat exercitationem vel ipsa commodi? Velit.</p>
+                        <h2 className={styles.h1 + " h1 display-4 text-white text-center"}>ROCK PAPER SCISSORS</h2>
+                        <p className="text-center text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sequi quae ipsum unde consequatur fugiat exercitationem vel ipsa commodi? Velit.</p>
                         <div className="d-block text-center">
-                        <Link to="/game/rps" className="btn btn-lg btn-block btn-warning  my-4">PLAY NOW</Link>
+                        <Link href="/game/rps" >
+                            <button className="btn btn-lg btn-block btn-warning my-4">
+                                PLAY NOW
+                            </button>
+                        </Link>
                         </div>
                     </div>
                     <div className="col-lg-6">
-                        <div className="grid-container">
+                        <div className={styles.gridContainer}>
                             
-                        <div className={styles.grid-item.item1 + 'mb-4'}>
-                        <h2 className="h1 text-white text-center">TOP SCORES</h2>
-                            <p className="text-center">This top score from various games provided on this polatform</p>
+                        <div className={styles.gridItem + ' mb-4'}>
+                        <h2 className={ styles.h1 + " h1 text-white text-center"}>TOP SCORES</h2>
+                            <p className="text-center text-white">This top score from various games provided on this polatform</p>
                             {player.map((item, index) => {
                                 return(
-                                    <div key={index} className="card bg-dark mt-4">
+                                    <div key={index} className={ styles.card + " card bg-dark mt-4"}>
                                         <div className="card-body">
                                             <div className="d-flex">
-                                            <div className="profil-image me-4 mb-4">
+                                            <div className={ styles.profileImage + " me-4 mb-4"}>
                                                 <img src={item.url} alt=""/>
-                                                <div className="back-shadow bg-warning"></div>
+                                                <div className={ styles.backShadow + " bg-warning"}></div>
                                             </div>
 
-                                            <h4 className="card-title mt-3 text-warning">{item.username}<span className="h6 text-muted"><br/>{item.score}</span></h4>
-                                            <a href="#" className="twitter-icon ms-auto mt-3"></a>
+                                            <h4 className={styles.cardTitle + " card-title mt-3 text-warning"}>{item.username}<span className="h6 text-muted"><br/>{item.score}</span></h4>
+                                            <a href="#" className={styles.twitterIcon + " ms-auto mt-3"}></a>
                                             </div>
                                             <p className="card-text">{item.bio}</p>
                                             <div className="text-muted">
