@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, onValue, update } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "../firebase/clientApp";
+import { getAuth, onAuthStateChanged } from "../../firebase/clientApp";
+import { useRouter } from "next/router"
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import {Link, useNavigate} from "react-router-dom";
 
-import styles from "../styles/Game.module.css";
+import styles from "../../styles/Game.module.css";
 
 export default function Game() {
   const [score, setScore] = useState(0);
@@ -21,6 +22,7 @@ export default function Game() {
   const auth = getAuth();
 
   // const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     console.log(score, comScore);
@@ -38,7 +40,7 @@ export default function Game() {
         });
       } else {
         console.log("no user");
-        // navigate('/login');
+        router.push('/login');
       }
     });
 
