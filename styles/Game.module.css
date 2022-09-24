@@ -17,14 +17,13 @@
 
 .choice{
     cursor: pointer;
-    
 }
 
-#game-rps .choice img{
+.choice img{
     transition-duration: .3s;
 }
 
-#game-rps .choice:hover img{
+.choice:hover img{
     transform: rotate(28.87deg);
 }
 

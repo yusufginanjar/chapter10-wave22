@@ -1,0 +1,34 @@
+.profilePage {
+    text-align: left;
+    background-color: rgb(20, 20, 20);
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 60px;
+  }
+
+
+.img {
+    width: 100%;
+    height: 100%;
+  }
+  
+.bgBlack {
+    background: #000;
+  }
+  
+ .skillBlock {
+    width: 30%;
+  }
+  
+  @media (min-width: 991px) and (max-width:1200px) {
+    .skillBlock {
+      padding: 32px !important;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .skillBlock {
+      padding: 56px !important;
+    }
+  }
+  
