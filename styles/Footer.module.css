@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+.mainfooter {
+  text-align: justify;
+  color: rgba(255, 255, 255);
+  font-family: inherit;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding-top: 3em;
+  position: relative;
+  bottom: 0;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+
+.li:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.li,
+.a {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.p {
+  text-align: end;
+  color: rgba(255, 255, 255, 0.75);
+}
