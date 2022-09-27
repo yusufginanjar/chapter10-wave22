@@ -56,16 +56,6 @@ export default function Profile() {
             dispatch(success());
         });
     }, [])
-
-    if(status === 'loading'){
-        return (
-            <div className="container my-4">
-                <div className="text-center">
-                    <h1>Loading...</h1>
-                </div>
-            </div>
-        )
-    }
      
     return(
         <div className={styles.profilePage + ' bg-dark'}>
@@ -97,7 +87,13 @@ export default function Profile() {
                             <div className={ styles.skillBlock + " p-3 bg-danger text-center"}>
                             {enableEdit ? 
                             <Link href={ `/players/edit/${_userId}` }>
-                              <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0">EDIT</button>
+                                {status == 'loading' ?  
+                                <button class="btn btn-warning font-weight-bold btn-lg text-dark rounded-0" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                </button>
+                                : 
+                                <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0">EDIT</button>}
                             </Link> : ''}
                             </div>
                         </div>

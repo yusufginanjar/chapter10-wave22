@@ -1,14 +1,22 @@
 import {useEffect, useState} from "react";
 import { query, orderByChild, limitToLast } from "firebase/database";
 import { getDatabase, ref, onValue  } from "../firebase/clientApp";
+
+import { useDispatch, useSelector } from "react-redux";
+import { processing, success } from "../store/statusSlice";
 import Link from 'next/link'
 import styles from '../styles/Rank.module.css'
 
 export default function Rank() {
     const [player, setPlayer] = useState([]);
-    
+    const status = useSelector(state => {
+        return state.status.status;
+    });
+
+    const dispatch = useDispatch();
     
     useEffect(() => {
+        dispatch(processing());
         const pathname = window.location.pathname
         const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
         const userId = getLastItem(pathname)
@@ -26,6 +34,7 @@ export default function Rank() {
             const y = x.sort((a, b) => b.score - a.score);
             console.log(y);
             setPlayer( y)
+            dispatch(success());
         });
     }, [])
      
@@ -40,9 +49,16 @@ export default function Rank() {
                         <p className="text-center text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et sequi quae ipsum unde consequatur fugiat exercitationem vel ipsa commodi? Velit.</p>
                         <div className="d-block text-center">
                         <Link href="/game/rps" >
+                            { status == 'loading' ? 
+                            <button class="btn btn-lg btn-block btn-warning my-4" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
+                                :
                             <button className="btn btn-lg btn-block btn-warning my-4">
                                 PLAY NOW
                             </button>
+                                 }
                         </Link>
                         </div>
                     </div>
