@@ -3,6 +3,9 @@ import { useRouter } from 'next/router'
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth, onAuthStateChanged  } from "../firebase/clientApp";
 import Link from 'next/link'
+import { useSelector, useDispatch } from "react-redux"
+import { playRPS, playZelda, playMario, playPortal2 } from '../store/gamesSlice';
+
 import styles from '../styles/Games.module.css'
 export default function Games() {
   const [player, setPlayer] = useState('');
@@ -10,6 +13,11 @@ export default function Games() {
   const auth = getAuth();
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
+  const games = useSelector(state => {
+    return state.games
+  });
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -55,7 +63,9 @@ export default function Games() {
           <strong className="d-inline-block mb-2 text-primary">Game</strong>
           <h3 className="mb-0 text-white">Rock Paper Scissors</h3>
           <p className="card-text mb-auto mt-2">Traditional Game: Play vs AI</p>
-          <Link href='/game/rps' className="stretched-link">Play Now</Link>
+          <div className="d-flex justify-content-between">
+            <Link href='/game/rps' className="stretched-link">Play Now</Link>
+          </div>
         </div>
         <div className="col-auto d-none d-lg-block">
           <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/people-playing-paper-rock-scissors-royalty-free-illustration-1583269312.jpg?crop=0.994xw:0.799xh;0.00160xw,0.195xh&resize=1600:*" alt="Rock Paper Scissors" width="200" height="250" />
@@ -65,10 +75,13 @@ export default function Games() {
     <div className="col-md-6">
       <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div className="col p-4 d-flex flex-column position-static text-white">
-          <strong className="d-inline-block mb-2 text-success">Game</strong>
+          <strong className="d-inline-block mb-2 text-success">Game {games.portal2.played == true ? '(Played)' : ''}</strong>
           <h3 className="mb-0 text-white">Portal 2</h3>
           <p className="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
-          <a href="#" className="stretched-link">Play Now</a>
+          <div className="d-flex justify-content-between">
+            <a href="#" onClick={() => dispatch(playPortal2())} className="stretched-link">Play Now</a>
+            {games.portal2.played == true ? <p>Your score: { games.portal2.score}</p> : ''}
+          </div>
         </div>
         <div className="col-auto d-none d-lg-block">
         <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=347&q=80" alt="Rock Paper Scissors" width="200" height="250" />
@@ -78,10 +91,13 @@ export default function Games() {
     <div className="col-md-6">
       <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div className="col p-4 d-flex flex-column position-static text-white">
-          <strong className="d-inline-block mb-2 text-danger">Game</strong>
+          <strong className="d-inline-block mb-2 text-danger">Game {games.zelda.played == true ? '(Played)' : ''}</strong>
           <h3 className="mb-0 text-white">The Legend of Zelda: Breath of the Wild</h3>
           <p className="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
-          <a href="#" className="stretched-link">Play Now</a>
+          <div className="d-flex justify-content-between">
+            <a href="#" onClick={() => dispatch(playZelda())} className="stretched-link">Play Now</a>
+            {games.zelda.played == true ? <p>Your score: { games.zelda.score}</p> : ''}
+          </div>
         </div>
         <div className="col-auto d-none d-lg-block">
         <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=347&q=80" alt="Rock Paper Scissors" width="200" height="250" />
@@ -91,10 +107,14 @@ export default function Games() {
     <div className="col-md-6">
       <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div className="col p-4 d-flex flex-column position-static text-white">
-          <strong className="d-inline-block mb-2 text-warning">Game</strong>
+          <strong className="d-inline-block mb-2 text-warning">Game {games.mario.played == true ? '(Played)' : ''}</strong>
           <h3 className="mb-0 text-white">Super Mario World</h3>
           <p className="mb-auto mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque, repudiandae.</p>
-          <a href="#" className="stretched-link">Play Now</a>
+          <div className="d-flex justify-content-between">
+            <a href="#" onClick={() => dispatch(playMario())} className="stretched-link">Play Now</a>
+            {games.mario.played == true ? <p>Your score: { games.mario.score}</p> : ''}
+            
+          </div>
         </div>
         <div className="col-auto d-none d-lg-block">
         <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=347&q=80" alt="Rock Paper Scissors" width="200" height="250" />
