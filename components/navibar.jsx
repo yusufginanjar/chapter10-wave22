@@ -5,16 +5,24 @@ import { getAuth, signOut } from '../firebase/clientApp';
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import Image from 'next/image';
-// import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { login as _login, logout } from '../store/loginSlice';
 
 export default function Navibar() {
   const [user, setUser] = useState(null);
   const auth = getAuth();
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const login = useSelector(state => {
+    return state.login.login;
+  });
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        dispatch(_login());
       }
     });
   }, []);
@@ -24,6 +32,7 @@ export default function Navibar() {
       console.log('signing out');
       await signOut(auth);
       setUser(null);
+      dispatch(logout());
       router.push('/login');
     } catch (error) {
       alert(error.message);
@@ -58,9 +67,9 @@ export default function Navibar() {
               <Nav.Link>Top Scores</Nav.Link>
             </Link>
           </Nav>
-          {user ? (
+          {user && login ? (
             <Nav className="justify-content-end">
-              <Link href="/profile" passHref>
+              <Link href={"/players/" + user.uid } passHref>
                 <Nav.Link>Profile</Nav.Link>
               </Link>
               <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
