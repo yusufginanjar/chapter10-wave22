@@ -10,6 +10,7 @@ import styles from "../../styles/Game.module.css";
 export default function Game() {
   const [score, setScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [playingScore, setPlayingScore] = useState(0);
   const [comScore, setComScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [play, setPlay] = useState(true);
@@ -20,14 +21,14 @@ export default function Game() {
   const [comPick, setComPick] = useState('');
   const [round, setRound] = useState(1);
   const [set, setSet] = useState(1);
+  const [history, setHistory] = useState([]);
 
   const auth = getAuth();
-
-  // const navigate = useNavigate();
 
   useEffect(() => {
       console.log(score, comScore);
       const db = getDatabase();
+      console.log(history);
       
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -51,18 +52,22 @@ export default function Game() {
               console.log('you win');
               const new_score = totalScore + 100;
               setTotalScore(new_score);
+              setPlayingScore(playingScore + 100);
               // update score to firebase
               update(_scoreRef, {
                   score: new_score,
               });
+              setHistory([...history, 'win']);
           } else if (comScore === 2) {
               console.log('you lose');
               const new_score = totalScore - 70;
               setTotalScore(new_score);
+              setPlayingScore(playingScore - 70);
               // update score to firebase
               update(_scoreRef, {
                   score: new_score,
               });
+              setHistory([...history, 'lose']);
           }
           setRound(round + 1);
           setGameOver(true);
@@ -156,7 +161,8 @@ export default function Game() {
                       <img src="../../assets/icons/rps-logo.svg" alt="" width="30" height="30"/>
                   </div>
                   <div id="title" className={styles.title}>Rock Paper Scissors</div>
-                  <div id="total-score" className={styles.totalscore + ' ms-4'}>| Your Total Score: {totalScore}</div>
+                  <div className={styles.totalscore + ' ms-4'}>| Your Total Score: {totalScore}</div>
+                  <div className={styles.totalscore + ' ms-4'}>| This Playing Score: {playingScore}</div>
               </nav>
           </div>
      
@@ -222,12 +228,26 @@ export default function Game() {
                   <div className="col-lg-3">
                     <div className="row">
                         <div className="ms-4">
-                            <p>Note: </p>
-                            <p>A player must win by two sets in to win the Round and get the Score</p>
-                            <p>WIN: score + 100, LOSE: score -70</p>
+                            <div className="text-grey">
+                              <p>Note: </p>
+                              <p>A player must win by two sets in to win the Round and get the Score</p>
+                              <p>WIN: score + 100, LOSE: score -70</p>
+                            </div>
                             <hr />
                             <h3>Round: {round} </h3>
                             <h3>Set: {set}</h3>
+                            <hr />
+                            <h5 className="mt-4">History</h5>
+                            {
+                                history.map((item, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <p>Round {index+1}: {item}</p>
+                                        </div>
+                                    )
+                                }
+                                )
+                            }
                         </div>
                     </div>
                   </div>
