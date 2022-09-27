@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, onValue, update } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "../../firebase/clientApp";
-import { useRouter } from "next/router"
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import {Link, useNavigate} from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { nextRound, nextSet, resetRound, resetSet, win, lose, addHistory } from '../../store/gameSlice';
 
 import styles from "../../styles/Game.module.css";
 
 export default function Game() {
   const [score, setScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
-  const [playingScore, setPlayingScore] = useState(0);
   const [comScore, setComScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [play, setPlay] = useState(true);
@@ -19,16 +17,19 @@ export default function Game() {
   const [player, setPlayer] = useState('Player 1');
   const [playerPick, setPlayerPick] = useState('');
   const [comPick, setComPick] = useState('');
-  const [round, setRound] = useState(1);
-  const [set, setSet] = useState(1);
-  const [history, setHistory] = useState([]);
 
   const auth = getAuth();
+
+  const game = useSelector(state => {
+    console.log(state.game);
+    return state.game;
+  });  
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
       console.log(score, comScore);
       const db = getDatabase();
-      console.log(history);
       
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -52,24 +53,24 @@ export default function Game() {
               console.log('you win');
               const new_score = totalScore + 100;
               setTotalScore(new_score);
-              setPlayingScore(playingScore + 100);
+              dispatch(win());
               // update score to firebase
               update(_scoreRef, {
                   score: new_score,
               });
-              setHistory([...history, 'win']);
+              dispatch(addHistory('win'))
           } else if (comScore === 2) {
               console.log('you lose');
               const new_score = totalScore - 70;
               setTotalScore(new_score);
-              setPlayingScore(playingScore - 70);
+              dispatch(lose());
               // update score to firebase
               update(_scoreRef, {
                   score: new_score,
               });
-              setHistory([...history, 'lose']);
+              dispatch(addHistory('lose'))
           }
-          setRound(round + 1);
+          dispatch(nextRound());
           setGameOver(true);
       }
   }, [score, comScore])
@@ -84,7 +85,7 @@ export default function Game() {
   // function to reset set play to true and pick to empty object
   const handleReset = () => {
       if(play == false && result != 'TIE'){
-          setSet(set + 1);
+          dispatch(nextSet());
       }
       setGameOver(false);
       setPlay(true);
@@ -94,7 +95,7 @@ export default function Game() {
       if(score === 2 || comScore === 2){
           setScore(0);
           setComScore(0);
-          setSet(1);
+          dispatch(resetSet());
       }
      
   }
@@ -162,7 +163,7 @@ export default function Game() {
                   </div>
                   <div id="title" className={styles.title}>Rock Paper Scissors</div>
                   <div className={styles.totalscore + ' ms-4'}>| Your Total Score: {totalScore}</div>
-                  <div className={styles.totalscore + ' ms-4'}>| This Playing Score: {playingScore}</div>
+                  <div className={styles.totalscore + ' ms-4'}>| Score in this game: {game.playingScore}</div>
               </nav>
           </div>
      
@@ -234,12 +235,12 @@ export default function Game() {
                               <p>WIN: score + 100, LOSE: score -70</p>
                             </div>
                             <hr />
-                            <h3>Round: {round} </h3>
-                            <h3>Set: {set}</h3>
+                            <h3>Round: {game.round} </h3>
+                            <h3>Set: {game.set}</h3>
                             <hr />
                             <h5 className="mt-4">History</h5>
                             {
-                                history.map((item, index) => {
+                                game.history.map((item, index) => {
                                     return (
                                         <div key={index}>
                                             <p>Round {index+1}: {item}</p>
