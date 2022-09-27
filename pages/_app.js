@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { useEffect } from "react";
+import { wrapper, store } from "../store";
+import { Provider } from "react-redux";
 
 import Footer from "../components/footer";
 import Navibar from "../components/navibar";
@@ -12,11 +14,14 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <>
-      <Navibar />
-      <Component {...pageProps} />
-      <Footer />
+      <Provider store={store}>
+        <Navibar />
+        <Component {...pageProps} />
+        <Footer />
+      </Provider>
     </>
   );
 }
 
-export default MyApp;
+// export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -1,6 +1,10 @@
 import {useEffect, useState} from "react";
 import { getDatabase, ref, onValue, query, orderByChild } from "firebase/database";
 import { getAuth, onAuthStateChanged  } from "../../firebase/clientApp";
+
+import { useDispatch, useSelector } from "react-redux";
+import { processing, success } from "../../store/statusSlice";
+
 import Link from 'next/link'
 import styles from '../../styles/Profile.module.css'
 
@@ -9,10 +13,16 @@ export default function Profile() {
     const [player, setPlayer] = useState('');
     const [enableEdit, setEnableEdit] = useState(false);
     const [_userId, setUserId] = useState('');
-
     const auth = getAuth();
 
+    const status = useSelector(state => {
+        return state.status.status;
+    });
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
+    dispatch(processing());
       const pathname = window.location.pathname
       const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
       const userId = getLastItem(pathname)
@@ -43,9 +53,9 @@ export default function Profile() {
                 level: Math.ceil(data.score / 128),
                 url: data.url ?? "https://firebasestorage.googleapis.com/v0/b/fsw22-kelompok1.appspot.com/o/pexels-ron-lach-7848986.jpg?alt=media&token=8a222888-d8f9-4cf6-bc1f-9a744ab0bb5a",
             })
+            dispatch(success());
         });
     }, [])
-
      
     return(
         <div className={styles.profilePage + ' bg-dark'}>
@@ -77,7 +87,13 @@ export default function Profile() {
                             <div className={ styles.skillBlock + " p-3 bg-danger text-center"}>
                             {enableEdit ? 
                             <Link href={ `/players/edit/${_userId}` }>
-                              <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0">EDIT</button>
+                                {status == 'loading' ?  
+                                <button class="btn btn-warning font-weight-bold btn-lg text-dark rounded-0" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                </button>
+                                : 
+                                <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0">EDIT</button>}
                             </Link> : ''}
                             </div>
                         </div>
