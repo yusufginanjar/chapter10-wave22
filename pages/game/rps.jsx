@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, onValue, update } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "../../firebase/clientApp";
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router';
 import { nextRound, nextSet, resetRound, resetSet, win, lose, addHistory } from '../../store/gameSlice';
 
 import styles from "../../styles/Game.module.css";
@@ -17,7 +18,7 @@ export default function Game() {
   const [player, setPlayer] = useState('Player 1');
   const [playerPick, setPlayerPick] = useState('');
   const [comPick, setComPick] = useState('');
-
+  const router = useRouter();
   const auth = getAuth();
 
   const game = useSelector(state => {
