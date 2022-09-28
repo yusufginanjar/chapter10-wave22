@@ -18,7 +18,7 @@ export default function Cards() {
                 <Card.Text className="text-black d-flex">
                   <span>
                     Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    up the bulk of the card`s content.
                   </span>
                 </Card.Text>
                 <Link href="/games">
@@ -37,7 +37,7 @@ export default function Cards() {
                 <Card.Title>Multiplayer Game</Card.Title>
                 <Card.Text className="text-black d-flex">
                   <span>
-                    the bulk of the card's content. Some quick example text to
+                    the bulk of the card`s content. Some quick example text to
                     build on the card title and make up
                   </span>
                 </Card.Text>
@@ -56,7 +56,7 @@ export default function Cards() {
                 <Card.Text className="text-black d-flex">
                   <span>
                     Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    up the bulk of the card`s content.
                   </span>
                 </Card.Text>
                 <Button variant="primary">See more</Button>
