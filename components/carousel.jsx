@@ -32,7 +32,7 @@ export default function Carousels() {
         <Carousel.Caption>
           {/* <h3>Second slide label</h3> */}
           <span className="d-flex justify-content-center">
-            There's something really cool is coming ! Stay tuned{" "}
+            There`s something really cool is coming ! Stay tuned{" "}
           </span>
         </Carousel.Caption>
       </Carousel.Item>
@@ -47,7 +47,7 @@ export default function Carousels() {
           {/* <h3>Third slide label</h3> */}
 
           <span className="d-flex justify-content-center">
-            There's something really cool is coming ! Stay tuned{" "}
+            There`s something really cool is coming ! Stay tuned{" "}
           </span>
         </Carousel.Caption>
       </Carousel.Item>

@@ -16,7 +16,7 @@ export default function Home(props) {
               <Col>
                 <h1 className={styles.title}>Welcome to The Game {player}</h1>
                 <h3 className={styles.title + " d-flex justify-content-center"}>
-                  Let's play some games !
+                  Let`s play some games !
                 </h3>
                 <Link href="/#Cards ">
                   <div className="d-flex justify-content-center ">
