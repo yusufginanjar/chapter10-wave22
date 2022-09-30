@@ -25,20 +25,11 @@ export default function Games() {
         router.push('/login');
       } 
 
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const db = getDatabase();
-          const uid = user.uid;
-          const dataRef = ref(db, '/users/' + uid);
-          onValue(dataRef, (snapshot) => {
-              const data = snapshot.val();
-              setPlayer({
-                  username: data.username,
-              })
-          });
-        } 
-    });
-
+      if(localStorage.getItem('username') !== null){
+        setPlayer({
+          username: localStorage.getItem('username')
+        })
+      }
 
     });
   }, []);

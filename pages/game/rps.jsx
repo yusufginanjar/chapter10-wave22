@@ -59,6 +59,7 @@ export default function Game() {
               update(_scoreRef, {
                   score: new_score,
               });
+              localStorage.setItem('score', new_score);
               dispatch(addHistory('win'))
           } else if (comScore === 2) {
               console.log('you lose');
@@ -69,6 +70,7 @@ export default function Game() {
               update(_scoreRef, {
                   score: new_score,
               });
+              localStorage.setItem('score', new_score);
               dispatch(addHistory('lose'))
           }
           dispatch(nextRound());
