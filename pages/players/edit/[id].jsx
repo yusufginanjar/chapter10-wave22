@@ -84,12 +84,16 @@ export default function ProfileEdit() {
                     update(ref(db, 'users/' + _userId), {
                         url: downloadUrl,
                       });
+                    localStorage.setItem('url', downloadUrl);
                 }
                 update(ref(db, 'users/' + _userId), {
                   username: e.target.username.value,
                   email: e.target.email.value,
                   bio: e.target.bio.value,
                 });
+                localStorage.setItem('username', e.target.username.value);
+                localStorage.setItem('email', e.target.email.value);
+                localStorage.setItem('bio', e.target.bio.value);
                 await Toast.fire({
                     icon: 'success',
                     title: 'Profile Update Successfully',

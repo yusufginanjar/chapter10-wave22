@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Form } from "react-bootstrap";
 import { signInWithEmailAndPassword, getAuth } from "../firebase/clientApp";
 import Swal from "sweetalert2";
@@ -26,6 +27,8 @@ export default function SignIn() {
   const auth = getAuth();
   const [login, setLogin] = useState(loginState);
   const { email, password } = login;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
