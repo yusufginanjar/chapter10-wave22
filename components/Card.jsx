@@ -41,7 +41,9 @@ export default function Cards() {
                     build on the card title and make up
                   </span>
                 </Card.Text>
-                <Button variant="primary">See more</Button>
+                <Link href="/game/rps">
+                  <Button variant="primary">See more</Button>
+                </Link>
               </Card.Body>
             </Card>
           </div>
