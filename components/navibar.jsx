@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { login as _login, logout } from "../store/loginSlice";
 import { logout as stateLogout } from "../store/authSlice";
 
+
 export default function Navibar() {
   const [user, setUser] = useState(null);
   const auth = getAuth();

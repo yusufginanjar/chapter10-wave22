@@ -2,7 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form } from "react-bootstrap";
-import { signInWithEmailAndPassword, getAuth } from "../firebase/clientApp";
+import { signInWithEmailAndPassword, getAuth, ref, getDatabase, onValue } from '../firebase/clientApp';
+import { login as stateLogin } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import styles from "../styles/Login.module.css";
 
@@ -33,7 +35,13 @@ export default function SignIn() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push("games");
+        router.push('games');
+        const db = getDatabase();
+        const dataRef = ref(db, '/users/' + user.uid);
+        onValue(dataRef, (snapshot) => {
+            const data = snapshot.val();
+            dispatch(stateLogin(data))
+        });
       }
     });
   });

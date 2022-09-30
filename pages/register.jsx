@@ -1,15 +1,19 @@
-import React, { useState as _useState } from "react";
-import { Form } from "react-bootstrap";
-import { uid } from "uid";
-import { useRouter as _useRouter } from "next/router";
-import Swal from "sweetalert2";
+import React, { useState as _useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { uid } from 'uid';
+import { useRouter as _useRouter } from 'next/router';
+import { login as stateLogin } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+
 import {
   createUserWithEmailAndPassword,
   getAuth,
   ref,
   set,
   getDatabase,
-} from "../firebase/clientApp";
+  onValue,
+} from '../firebase/clientApp';
 const registerState = {
   username: "",
   password: "",
@@ -38,6 +42,7 @@ export default function signup() {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+  const dispatch = useDispatch();
   const handleRegister = async () => {
     if ((username, password, email === "")) {
       await Toast.fire({
@@ -63,6 +68,11 @@ export default function signup() {
             bio,
           }
         );
+        const dataRef = ref(db, `/users/${auth.currentUser.uid}`);
+        onValue(dataRef, (snapshot) => {
+            const data = snapshot.val();
+            dispatch(stateLogin(data))
+        });
         await Toast.fire({
           icon: "success",
           title:
