@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { signInWithEmailAndPassword, getAuth } from '../firebase/clientApp';
+import { signInWithEmailAndPassword, getAuth, ref, getDatabase, onValue } from '../firebase/clientApp';
+import { login as stateLogin } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 const Toast = Swal.mixin({
   toast: true,
@@ -24,10 +26,18 @@ export default function SignIn() {
   const [login, setLogin] = useState(loginState);
   const { email, password } = login;
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         router.push('games');
+        const db = getDatabase();
+        const dataRef = ref(db, '/users/' + user.uid);
+        onValue(dataRef, (snapshot) => {
+            const data = snapshot.val();
+            dispatch(stateLogin(data))
+        });
       }
     });
   });

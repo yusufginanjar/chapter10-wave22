@@ -7,18 +7,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux'
 import { login as _login, logout } from '../store/loginSlice';
+import { logout as stateLogout } from '../store/authSlice';
 
 export default function Navibar() {
   const [user, setUser] = useState(null);
   const auth = getAuth();
   const router = useRouter();
+  const [isLogin, setIslogin] = useState("false");
   const dispatch = useDispatch();
 
-  const login = useSelector(state => {
-    return state.login.login;
-  });
-
   useEffect(() => {
+    setIslogin(localStorage.getItem('isAuthenticated'));
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
@@ -33,6 +32,7 @@ export default function Navibar() {
       await signOut(auth);
       setUser(null);
       dispatch(logout());
+      dispatch(stateLogout());
       router.push('/login');
     } catch (error) {
       alert(error.message);
@@ -67,7 +67,7 @@ export default function Navibar() {
               <Nav.Link>Top Scores</Nav.Link>
             </Link>
           </Nav>
-          {user && login ? (
+          {user && isLogin == "true" ? (
             <Nav className="justify-content-end">
               <Link href={"/players/" + user.uid } passHref>
                 <Nav.Link>Profile</Nav.Link>

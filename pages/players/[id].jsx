@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import { getDatabase, ref, onValue, query, orderByChild } from "firebase/database";
 import { getAuth, onAuthStateChanged  } from "../../firebase/clientApp";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -22,39 +21,30 @@ export default function Profile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-    dispatch(processing());
-      const pathname = window.location.pathname
-      const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
-      const userId = getLastItem(pathname)
-      setUserId(userId);
+        dispatch(processing());
+        const pathname = window.location.pathname
+        const getLastItem = thePath => thePath.substring(thePath.lastIndexOf('/') + 1)
+        const userId = getLastItem(pathname)
+        setUserId(userId);
 
+        if(localStorage.getItem('isAuthenticated') === 'true'){
+            setPlayer({
+                username: localStorage.getItem('username'),
+                email: localStorage.getItem('email'),
+                bio: localStorage.getItem('bio'),
+                score: localStorage.getItem('score'),
+                level: Math.ceil(localStorage.getItem('score')/100),
+                url: localStorage.getItem('url') != 'undefined' ? localStorage.getItem('url') : "https://firebasestorage.googleapis.com/v0/b/fsw22-kelompok1.appspot.com/o/pexels-ron-lach-7848986.jpg?alt=media&token=8a222888-d8f9-4cf6-bc1f-9a744ab0bb5a",
+            })
+        };
+        
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+        if (user) {
               const uid = user.uid;
               if (uid === userId){ setEnableEdit(true)}
             } 
         });
-        
-        const db = getDatabase();
-        const topUserPostsRef = query(ref(db, 'users'),orderByChild('score'));
-        onValue(topUserPostsRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data);
-        });
-        const dataRef = ref(db, '/users/' + userId);
-        onValue(dataRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data.score);
-            setPlayer({
-                username: data.username,
-                email: data.email,
-                bio: data.bio,
-                score: data.score,
-                level: Math.ceil(data.score / 128),
-                url: data.url ?? "https://firebasestorage.googleapis.com/v0/b/fsw22-kelompok1.appspot.com/o/pexels-ron-lach-7848986.jpg?alt=media&token=8a222888-d8f9-4cf6-bc1f-9a744ab0bb5a",
-            })
-            dispatch(success());
-        });
+        dispatch(success());
     }, [])
      
     return(
@@ -88,8 +78,8 @@ export default function Profile() {
                             {enableEdit ? 
                             <Link href={ `/players/edit/${_userId}` }>
                                 {status == 'loading' ?  
-                                <button class="btn btn-warning font-weight-bold btn-lg text-dark rounded-0" type="button" disabled>
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <button className="btn btn-warning font-weight-bold btn-lg text-dark rounded-0" type="button" disabled>
+                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     Loading...
                                 </button>
                                 : 
