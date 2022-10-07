@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../styles/Footer.module.css";
+import styles from "../styles/Footer.module.scss";
 
 export default function Footer() {
   const year = new Date().getFullYear;

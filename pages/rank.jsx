@@ -5,7 +5,7 @@ import { getDatabase, ref, onValue  } from "../firebase/clientApp";
 import { useDispatch, useSelector } from "react-redux";
 import { processing, success } from "../store/statusSlice";
 import Link from 'next/link'
-import styles from '../styles/Rank.module.css'
+import styles from '../styles/Rank.module.scss'
 
 export default function Rank() {
     const [player, setPlayer] = useState([]);

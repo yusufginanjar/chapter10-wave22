@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 
 import Footer from "../components/footer";
 import Navibar from "../components/navibar";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

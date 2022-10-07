@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { processing, success } from "../../store/statusSlice";
 
 import Link from 'next/link'
-import styles from '../../styles/Profile.module.css'
+import styles from '../../styles/Profile.module.scss'
 
 
 export default function Profile() {

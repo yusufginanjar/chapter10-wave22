@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword, getAuth, ref, getDatabase, onValue } from '
 import { login as stateLogin } from '../store/authSlice';
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
-import styles from "../styles/Login.module.css";
+import styles from "../styles/Login.module.scss";
 
 const Toast = Swal.mixin({
   toast: true,

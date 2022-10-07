@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router';
 import { nextRound, nextSet, resetRound, resetSet, win, lose, addHistory } from '../../store/gameSlice';
 
-import styles from "../../styles/Game.module.css";
+import styles from "../../styles/Game.module.scss";
 
 export default function Game() {
   const [score, setScore] = useState(0);

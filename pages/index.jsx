@@ -3,7 +3,7 @@ import Link from "next/link";
 import Carousels from "../components/carousel";
 import Cards from "../components/Card";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import styles from "../styles/Landing.module.css";
+import styles from "../styles/Landing.module.scss";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";

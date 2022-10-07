@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged  } from "../../../firebase/clientApp";
 import { getDownloadURL, getStorage, ref as _ref, uploadBytes} from 'firebase/storage'
 import { useDispatch, useSelector } from "react-redux";
 import { processing, success } from "../../../store/statusSlice";
-import styles from "../../../styles/Profile.module.css"
+import styles from "../../../styles/Profile.module.scss"
 import Link from 'next/link'
 import Swal from 'sweetalert2';
 

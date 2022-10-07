@@ -11,7 +11,7 @@ import {
   playPortal2,
 } from "../store/gamesSlice";
 
-import styles from "../styles/Games.module.css";
+import styles from "../styles/Games.module.scss";
 export default function Games() {
   const [player, setPlayer] = useState("");
 
